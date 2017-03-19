@@ -33,7 +33,10 @@ app.use(cookieParser());
 app.use(session({
     secret: settings.cookieSecret,
     store: new MongoStore({
-        db: settings.db
+      host: settings.host,
+      port: 27017,
+      db: settings.db,
+      url:"mongodb://localhost:27017/microblog"
     })
 }));
 app.use(express.static(path.join(__dirname, 'public')));
