@@ -37,7 +37,9 @@ app.use(session({
       port: 27017,
       db: settings.db,
       url:"mongodb://localhost:27017/microblog"
-    })
+    }),
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
