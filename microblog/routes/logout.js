@@ -6,10 +6,14 @@
  * 修改内容：新增
  */
 var express = require('express');
+var userCheck = require('./check-login');
 var router = express.Router();
 
+router.get('/', userCheck.checkLogin);
 router.get('/', function (req, res, next) {
-    res.send('logout');
+    req.session.user = null;
+    req.flash('success', '登出成功');
+    res.redirect("/");
 });
 
 module.exports = router;
