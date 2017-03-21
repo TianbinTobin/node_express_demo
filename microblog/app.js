@@ -10,8 +10,12 @@ var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var settings = require('./setting');
 var routes = require('./routes/routes');
+var fs = require('fs');
 
 var app = express();
+
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
+var errorLogStream = fs.createWriteStream(path.join(__dirname, 'error.log'), {flags: 'a'});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,14 +42,24 @@ app.use(session({
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(logger('combined', {stream: accessLogStream}));
+
 app.use(function (req, res, next) {
-    res.locals.user=req.session.user;
-    res.locals.success=req.flash('success').toString();
-    res.locals.error=req.flash('error').toString();
+    res.locals.user = req.session.user;
+    res.locals.success = req.flash('success').toString();
+    res.locals.error = req.flash('error').toString();
     next();
 });
 
 routes(app);
+
+
+app.use(function (err, req, res, next) {
+    var meta = '[' + new Date() + '] ' + req.url + '\n';
+    errorLogStream.write(meta + err.stack + '\n');
+    next();
+});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

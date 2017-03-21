@@ -7,8 +7,8 @@
  */
 var mongodb = require('./db');
 
-var Post = function (username, post, time) {
-    this.username = username;
+var Post = function (user, post, time) {
+    this.user = user;
     this.post = post;
     this.time = time ? time : new Date();
 };
@@ -17,7 +17,7 @@ module.exports = Post;
 Post.prototype.save = function (callback) {
 
     var post = {
-        user: this.username,
+        user: this.user,
         post: this.post,
         time: this.time
     };
