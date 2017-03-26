@@ -1,6 +1,6 @@
 {
   "name": "microblog",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "supervisor ./bin/www"
@@ -17,6 +17,7 @@
     "express-session": "^1.15.1",
     "mongodb": "~2.2.25",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "supervisor": "^0.12.0"
   }
 }

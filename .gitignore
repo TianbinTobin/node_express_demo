@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+.idea/
+microblog/node_modules
+microblog/access.log
+microblog/error.log
+npm-debug.log
